@@ -1,0 +1,41 @@
+<!-- lala_app/templates/lala_app/productos_lacteos.html -->
+{% extends 'lala_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="products-container">
+    <div class="container">
+        <h1>🥛 Productos Lácteos</h1>
+        <p class="section-description">Descubre nuestra deliciosa variedad de productos lácteos frescos y de alta calidad.</p>
+        
+        <div class="products-grid">
+            {% for producto in productos %}
+            <div class="product-card">
+                <div class="product-image">
+                    <a href="{% url 'detalle_producto' producto.id %}">
+                        {% if producto.foto %}
+                            <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}">
+                        {% else %}
+                            <img src="{% static 'lala_app/img/placeholder.jpg' %}" alt="Imagen no disponible">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="product-info">
+                    <h3><a href="{% url 'detalle_producto' producto.id %}">{{ producto.nombre }}</a></h3>
+                    <p class="product-description">{{ producto.descripcion|truncatewords:20 }}</p>
+                    <p class="product-price">${{ producto.precio }}</p>
+                    
+                    <div class="product-actions">
+                        <a href="{% url 'detalle_producto' producto.id %}" class="btn-view-details">👀 Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-products">
+                <p>No hay productos lácteos disponibles en este momento.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

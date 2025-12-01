@@ -1,0 +1,35 @@
+<!-- lala_app/templates/lala_app/admin_crud/cliente_list.html -->
+{% extends 'lala_app/admin_crud/base_crud.html' %}
+
+{% block crud_content %}
+<div class="table-container">
+    <table class="crud-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Nombre Completo</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in objetos %}
+            <tr>
+                <td>{{ cliente.id }}</td>
+                <td>{{ cliente.usuario.username }}</td>
+                <td>{{ cliente.usuario.get_full_name }}</td>
+                <td>{{ cliente.correo }}</td>
+                <td>{{ cliente.telefono|default:"No especificado" }}</td>
+                <td>{{ cliente.fecha_registro }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="no-data">No hay clientes registrados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

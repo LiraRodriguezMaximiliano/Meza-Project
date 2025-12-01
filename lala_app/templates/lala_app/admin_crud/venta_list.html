@@ -1,0 +1,35 @@
+<!-- lala_app/templates/lala_app/admin_crud/venta_list.html -->
+{% extends 'lala_app/admin_crud/base_crud.html' %}
+
+{% block crud_content %}
+<div class="table-container">
+    <table class="crud-table">
+        <thead>
+            <tr>
+                <th>ID Venta</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in objetos %}
+            <tr>
+                <td>V-{{ venta.id }}</td>
+                <td>{{ venta.cliente.usuario.get_full_name }}</td>
+                <td>{{ venta.fecha }}</td>
+                <td>${{ venta.total }}</td>
+                <td>
+                    <a href="#" class="btn-view">📋 Ver Detalles</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No hay ventas registradas</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
